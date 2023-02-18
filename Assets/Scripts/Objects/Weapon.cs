@@ -12,6 +12,7 @@ namespace Objects
         [FormerlySerializedAs("BulletSpeed")] public float bulletSpeed;
         [FormerlySerializedAs("Range")] public float range;
         [FormerlySerializedAs("Damage")] public float damage;
+        public int bulletsPerShot = 1;
 
         public GameObject bullet;
 

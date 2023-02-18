@@ -11,8 +11,8 @@ namespace Core
 {
     public class Player : MonoBehaviour
     {
-        public int movementSpeed = 1;
-        public int turningSpeed = 1;
+        public float movementSpeed = 1;
+        public float turningSpeed = 1;
 
         public Weapon currentWeapon;
         public GameObject sprite;
@@ -20,7 +20,7 @@ namespace Core
         public SpriteRenderer playerRenderer;
         public SpriteRenderer arrowRenderer;
         public Color playerColor;
-        
+
         // todo: remove and replace with map
         public KeyCode keyRight;
         public KeyCode keyLeft;
@@ -64,7 +64,7 @@ namespace Core
                 transform.Rotate(rot);
                 sprite.transform.Rotate(-rot);
             }
-            
+
             if (!(Input.GetKey(keyRight) && Input.GetKey(keyLeft)))
             {
                 // go in forward facing direction
@@ -79,6 +79,7 @@ namespace Core
             {
                 _ctrl.AnnounceDeath(this);
             }
+
             animator.SetInteger("direction", ((int)(transform.rotation.eulerAngles.z + 22.5d) / 45 + 10) % 8);
         }
 
@@ -99,7 +100,16 @@ namespace Core
             keyAction1 = p.KeyMap[Globals.KeyFunctions.Action1];
             keyAction2 = p.KeyMap[Globals.KeyFunctions.Action2];
 
+            // set player values
             _health = p.InitialHealth;
+            movementSpeed = p.MovementSpeed;
+            turningSpeed = p.TurningSpeed;
+
+            currentWeapon.range = p.FireRange;
+            currentWeapon.damage = p.FireDamage;
+            currentWeapon.fireInterval = p.FireInterval;
+            currentWeapon.bulletsPerShot = p.BulletsPerShot;
+
             _playerData = p;
 
             transform.Find(Globals.PlayerHeadSprite).GetComponent<SpriteRenderer>().color = p.Color;
@@ -116,8 +126,15 @@ namespace Core
         public readonly Dictionary<string, KeyCode> KeyMap;
         public string Name;
         public Color Color;
+
+        public float InitialHealth = Globals.InitPlayerVals.Health;
+        public float MovementSpeed = Globals.InitPlayerVals.MovementSpeed;
+        public float TurningSpeed = Globals.InitPlayerVals.TurningSpeed;
         
-        public float InitialHealth = 2;
+        public float FireInterval = Globals.InitPlayerVals.FireInterval;
+        public float FireRange = Globals.InitPlayerVals.FireRange;
+        public float FireDamage = Globals.InitPlayerVals.FireDamage;
+        public int BulletsPerShot = Globals.InitPlayerVals.BulletsPerShot;
 
         public PlayerData(Dictionary<string, KeyCode> keyMap, Color color, string name)
         {

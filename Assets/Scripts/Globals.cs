@@ -80,6 +80,18 @@ namespace DefaultNamespace
             }
         };
 
+        public static class InitPlayerVals
+        {
+            public const float MovementSpeed = 1;
+            public const float TurningSpeed = 1;
+            public const float Health = 2;
+            
+            public const float FireInterval = 1;
+            public const float FireRange = 20;
+            public const float FireDamage = 1;
+            public const int BulletsPerShot = 1;
+        }
+
         public static class Scenes
         {
             public const string Game = "Game";

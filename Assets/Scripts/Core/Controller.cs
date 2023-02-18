@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using DefaultNamespace;
+using DefaultNamespace.Menus;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace Core
 {
@@ -16,8 +18,12 @@ namespace Core
         public GameObject end;
         public GameObject scores;
         public TextMeshProUGUI scorePrefab;
+        public TextMeshProUGUI playerToUpgrade;
+        public UpgradePrefab upgradePrefab;
+        public Transform upgradeContainer;
 
         private List<PlayerData> _deathOrder;
+        private int _nextPlayerToSelectUpgrade;
 
 
         // Start is called before the first frame update
@@ -82,10 +88,49 @@ namespace Core
         public void EndRound()
         {
             Time.timeScale = 0;
-            // levelUp.SetActive(true);
+            
+            ShowUpgradeScreen();
 
-            var txt = Instantiate(scorePrefab, scores.transform);
-            txt.SetText("1. " + GetWinner().Name);
+            // ShowFinalScore();
+        }
+
+        private void ShowUpgradeScreen()
+        {
+            levelUp.SetActive(true);
+            
+            var upgrades = PlayerUpgrades.GenerateUpgrades(Globals.PlayersToSpawn.Count);
+            playerToUpgrade.SetText(_deathOrder[0].Name);
+            _nextPlayerToSelectUpgrade = 0;
+
+            foreach (var upgrade in upgrades)
+            {
+                var upgradeObj = Instantiate(upgradePrefab, upgradeContainer);
+                upgradeObj.description.SetText(upgrade.GetMessage());
+                // upgradeObj.img.sprite = upgrade.GetImage().sprite;
+                upgradeObj.btn.onClick.AddListener(() => UpgradeSelected(upgrade, upgradeObj));
+            }
+        }
+
+        private void UpgradeSelected(Upgrade upgrade, UpgradePrefab upgradeGameObj)
+        {
+            upgrade.ApplyToPlayer(_deathOrder[_nextPlayerToSelectUpgrade]);
+            Destroy(upgradeGameObj.gameObject);
+
+            _nextPlayerToSelectUpgrade++;
+
+            if (_nextPlayerToSelectUpgrade >= Globals.PlayersToSpawn.Count)
+            {
+                Globals.PlayersToSpawn = _deathOrder;
+                StartRound();
+                return;
+            }
+            
+            playerToUpgrade.SetText(_deathOrder[_nextPlayerToSelectUpgrade].Name);
+        }
+
+        public void ShowFinalScore()
+        {
+            TextMeshProUGUI txt = null;
 
             for (var i = _deathOrder.Count - 1; i >= 0; i--)
             {
@@ -94,7 +139,8 @@ namespace Core
             }
 
             var entrySize = txt.GetComponent<RectTransform>().sizeDelta;
-            scores.GetComponent<RectTransform>().sizeDelta = new Vector2(100, entrySize.y * Globals.PlayersToSpawn.Count);
+            scores.GetComponent<RectTransform>().sizeDelta =
+                new Vector2(100, entrySize.y * Globals.PlayersToSpawn.Count);
 
             end.SetActive(true);
         }
@@ -111,6 +157,11 @@ namespace Core
 
             if (_deathOrder.Count + 1 >= Globals.PlayersToSpawn.Count)
             {
+                if (_deathOrder.Count < Globals.PlayersToSpawn.Count)
+                {
+                    _deathOrder.Add(GetWinner());
+                }
+
                 EndRound();
             }
         }
