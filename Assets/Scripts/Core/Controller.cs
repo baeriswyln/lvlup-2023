@@ -12,7 +12,6 @@ namespace Core
 {
     public class Controller : MonoBehaviour
     {
-        public Transform spawnArea;
         public Player playerPrefab;
 
         [Header("UI Elements")] public GameObject pause;
@@ -25,6 +24,8 @@ namespace Core
         public UpgradePrefab upgradePrefab;
         public Transform upgradeContainer;
 
+        public List<Transform> spawnPoints;
+        
         private List<PlayerData> _deathOrder;
         private int _nextPlayerToSelectUpgrade;
 
@@ -66,17 +67,20 @@ namespace Core
             if (Globals.PlayersToSpawn == null) return;
 
             // spawn players at random positions inside the spawn area
+            List<int> usedIdx = new List<int>();
             foreach (var p in Globals.PlayersToSpawn)
             {
-                var dx = spawnArea.localScale.x / 2;
-                var dy = spawnArea.localScale.y / 2;
-
-                var randomPosition = new Vector3(Random.Range(-dx, dx), Random.Range(-dy, dy), 0);
+                int idx;
+                do {
+                    idx = Random.Range(0, spawnPoints.Count);
+                } while (usedIdx.Contains(idx));
+                
+                var randomPosition = spawnPoints[idx].position;
                 var randomRotation = Quaternion.AngleAxis(Random.Range(0, 360), Vector3.forward);
                 var newPlayer = Instantiate(playerPrefab, randomPosition, randomRotation);
                 newPlayer.sprite.transform.Rotate(-randomRotation.eulerAngles);
                 newPlayer.bars.transform.Rotate(-randomRotation.eulerAngles);
-
+                
                 newPlayer.Initialize(p);
             }
 

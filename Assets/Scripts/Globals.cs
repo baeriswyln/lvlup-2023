@@ -96,7 +96,7 @@ namespace DefaultNamespace
 
         public static class Scenes
         {
-            public const string Game = "Game";
+            public const string Game = "Arena";
             public const string Menu = "MainMenu";
         }
     }
