@@ -2,15 +2,16 @@ using System;
 using System.Timers;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Objects
 {
     public class Weapon : MonoBehaviour
     {
-        public float FireInterval;
-        public float BulletSpeed;
-        public float Range;
-        public float Damage;
+        [FormerlySerializedAs("FireInterval")] public float fireInterval;
+        [FormerlySerializedAs("BulletSpeed")] public float bulletSpeed;
+        [FormerlySerializedAs("Range")] public float range;
+        [FormerlySerializedAs("Damage")] public float damage;
 
         public GameObject bullet;
 
@@ -18,7 +19,7 @@ namespace Objects
         
         public void Start()
         {
-            InvokeRepeating("Shoot", FireInterval, FireInterval);
+            InvokeRepeating("Shoot", fireInterval, fireInterval);
         }
 
         void Shoot()
@@ -29,8 +30,6 @@ namespace Objects
 
 
             bulletInstance = Instantiate(bullet, transform.position + offset, transform.rotation);
-            // bulletInstance.GetComponent<SpriteRenderer>().enabled = true;
-            // bulletInstance.GetComponent<CircleCollider2D>().enabled = true;
             
             Bullet b = bulletInstance.AddComponent<Bullet>();
             b.SetProperties(this);

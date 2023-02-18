@@ -21,20 +21,20 @@ namespace Objects
 
         public float GetDamage()
         {
-            return _weapon.Damage;
+            return _weapon.damage;
         }
 
         private void Start()
         {
             _lastPosition = transform.position;
             _rb = GetComponent<Rigidbody2D>();
-            _rb.velocity = transform.up * (_weapon.BulletSpeed * Globals.SpeedAdjFactor);
+            _rb.velocity = transform.up * (_weapon.bulletSpeed * Globals.SpeedAdjFactor);
             _lastVelocity = _rb.velocity;
         }
 
         private void FixedUpdate()
         {
-            if (_distanceTraveled > _weapon.Range)
+            if (_distanceTraveled > _weapon.range)
             {
                 Destroy(gameObject);
             }

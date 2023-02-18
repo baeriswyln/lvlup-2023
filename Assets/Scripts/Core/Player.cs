@@ -21,7 +21,7 @@ namespace Core
         public KeyCode keyAction1;
         public KeyCode keyAction2;
 
-        private float _health;
+        private float _health = 10;
 
         private PlayerData _playerData;
         private Rigidbody2D _rb;
@@ -33,6 +33,7 @@ namespace Core
         private void Start()
         {
             _rb = GetComponent<Rigidbody2D>();
+            _ctrl = GameObject.Find(Globals.Controller).GetComponent<Controller>();
         }
 
         // Updated 60 times per seconds
