@@ -45,6 +45,8 @@ namespace Objects
 
         private void OnCollisionEnter2D(Collision2D col)
         {
+            if (_rb == null) return;
+            
             _rb.velocity = Vector2.Reflect(_lastVelocity, col.contacts[0].normal);
             _lastVelocity = _rb.velocity;
         }

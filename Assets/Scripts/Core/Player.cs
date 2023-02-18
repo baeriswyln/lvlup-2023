@@ -26,7 +26,7 @@ namespace Core
         // todo: remove and replace with map
         public KeyCode keyRight;
         public KeyCode keyLeft;
-        public KeyCode keyAction1;
+        [FormerlySerializedAs("keyAction1")] public KeyCode keyShoot;
         public KeyCode keyAction2;
 
         private float _health = 10;
@@ -76,11 +76,19 @@ namespace Core
             }
             else
             {
+                // stop if both keys are pressed
                 _rb.velocity = Vector2.zero;
+            }
+
+            if (Input.GetKey(keyShoot))
+            {
+                // shoot. this only works after a cooldown
+                currentWeapon.Shoot();
             }
 
             if (_health <= 0)
             {
+                // player died. anounce death
                 _ctrl.AnnounceDeath(this);
             }
 
@@ -113,8 +121,8 @@ namespace Core
             // Keys
             keyLeft = p.KeyMap[Globals.KeyFunctions.TurnLeft];
             keyRight = p.KeyMap[Globals.KeyFunctions.TurnRight];
-            keyAction1 = p.KeyMap[Globals.KeyFunctions.Action1];
-            keyAction2 = p.KeyMap[Globals.KeyFunctions.Action2];
+            keyShoot = p.KeyMap[Globals.KeyFunctions.Shoot];
+            keyAction2 = p.KeyMap[Globals.KeyFunctions.Ability];
 
             // Player properties
             _health = p.InitialHealth;

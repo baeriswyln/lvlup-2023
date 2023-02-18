@@ -32,8 +32,8 @@ namespace DefaultNamespace.Menus
                 playerSelector.Color.SetText(Globals.Players[i].Item2);
                 playerSelector.TurnLeft.SetText(Globals.KeyMaps[i][Globals.KeyFunctions.TurnLeft].ToString());
                 playerSelector.TurnRight.SetText(Globals.KeyMaps[i][Globals.KeyFunctions.TurnRight].ToString());
-                playerSelector.Action1.SetText(Globals.KeyMaps[i][Globals.KeyFunctions.Action1].ToString());
-                playerSelector.Action2.SetText(Globals.KeyMaps[i][Globals.KeyFunctions.Action2].ToString());
+                playerSelector.Action1.SetText(Globals.KeyMaps[i][Globals.KeyFunctions.Shoot].ToString());
+                playerSelector.Action2.SetText(Globals.KeyMaps[i][Globals.KeyFunctions.Ability].ToString());
             }
 
             UpdateNumberOfPlayers();

@@ -43,15 +43,14 @@ namespace Objects
         {
             counter++;
             bar.SetProgress(counter, countToFire);
-            if (counter >= countToFire)
-            {
-                Shoot();
-                counter = 0;
-            }
         }
 
-        void Shoot()
+        public void Shoot()
         {
+            if (counter < countToFire) return;
+
+            counter = 0;
+            
             // show particles with initial speed
             GameObject bulletInstance;
 

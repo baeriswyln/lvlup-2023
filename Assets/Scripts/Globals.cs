@@ -24,8 +24,8 @@ namespace DefaultNamespace
         {
             public const string TurnLeft = "tl";
             public const string TurnRight = "tr";
-            public const string Action1 = "a1";
-            public const string Action2 = "a2";
+            public const string Shoot = "a1";
+            public const string Ability = "a2";
         }
 
         public static readonly List<(Color, string, Sprite, Weapon.WeaponType)> Players = new()
@@ -44,43 +44,43 @@ namespace DefaultNamespace
             {
                 [KeyFunctions.TurnLeft] = KeyCode.Q,
                 [KeyFunctions.TurnRight] = KeyCode.E,
-                [KeyFunctions.Action1] = KeyCode.Alpha2,
-                [KeyFunctions.Action2] = KeyCode.W
+                [KeyFunctions.Shoot] = KeyCode.Alpha2,
+                [KeyFunctions.Ability] = KeyCode.W
             },
             new Dictionary<string, KeyCode>()
             {
                 [KeyFunctions.TurnLeft] = KeyCode.R,
                 [KeyFunctions.TurnRight] = KeyCode.Y,
-                [KeyFunctions.Action1] = KeyCode.Alpha5,
-                [KeyFunctions.Action2] = KeyCode.T
+                [KeyFunctions.Shoot] = KeyCode.Alpha5,
+                [KeyFunctions.Ability] = KeyCode.T
             },
             new Dictionary<string, KeyCode>()
             {
                 [KeyFunctions.TurnLeft] = KeyCode.U,
                 [KeyFunctions.TurnRight] = KeyCode.O,
-                [KeyFunctions.Action1] = KeyCode.Alpha8,
-                [KeyFunctions.Action2] = KeyCode.I
+                [KeyFunctions.Shoot] = KeyCode.Alpha8,
+                [KeyFunctions.Ability] = KeyCode.I
             },
             new Dictionary<string, KeyCode>()
             {
                 [KeyFunctions.TurnLeft] = KeyCode.Z,
                 [KeyFunctions.TurnRight] = KeyCode.C,
-                [KeyFunctions.Action1] = KeyCode.S,
-                [KeyFunctions.Action2] = KeyCode.X
+                [KeyFunctions.Shoot] = KeyCode.S,
+                [KeyFunctions.Ability] = KeyCode.X
             },
             new Dictionary<string, KeyCode>()
             {
                 [KeyFunctions.TurnLeft] = KeyCode.V,
                 [KeyFunctions.TurnRight] = KeyCode.N,
-                [KeyFunctions.Action1] = KeyCode.G,
-                [KeyFunctions.Action2] = KeyCode.B
+                [KeyFunctions.Shoot] = KeyCode.G,
+                [KeyFunctions.Ability] = KeyCode.B
             },
             new Dictionary<string, KeyCode>()
             {
                 [KeyFunctions.TurnLeft] = KeyCode.M,
                 [KeyFunctions.TurnRight] = KeyCode.Period,
-                [KeyFunctions.Action1] = KeyCode.K,
-                [KeyFunctions.Action2] = KeyCode.Comma
+                [KeyFunctions.Shoot] = KeyCode.K,
+                [KeyFunctions.Ability] = KeyCode.Comma
             }
         };
         

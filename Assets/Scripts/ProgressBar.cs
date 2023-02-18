@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,7 +16,7 @@ public class ProgressBar : MonoBehaviour
 
     public void SetProgress(float progress, float on)
     {
-        float percent = progress / on;
+        float percent = Math.Min(progress / on, 1);
         barTransform.localScale = new Vector3(percent, transform.localScale.y, transform.localScale.z);
         bar.color = barGradient.Evaluate(percent);
     }
