@@ -121,7 +121,7 @@ namespace Core
             {
                 var upgradeObj = Instantiate(upgradePrefab, upgradeContainer);
                 upgradeObj.description.SetText(upgrade.GetMessage());
-                // upgradeObj.img.sprite = upgrade.GetImage().sprite;
+                upgradeObj.img.sprite = upgrade.GetImage();
                 upgradeObj.btn.onClick.AddListener(() => UpgradeSelected(upgrade, upgradeObj));
             }
         }

@@ -45,6 +45,7 @@ public class PlayerUpgrades
 
 public abstract class Upgrade
 {
+    public Sprite icon;
     protected readonly float Bonus;
 
     public Upgrade()
@@ -62,7 +63,7 @@ public abstract class Upgrade
 
     public abstract void ApplyToPlayer(PlayerData p);
     public abstract string GetMessage();
-    public abstract Image GetImage();
+    public abstract Sprite GetImage();
     public abstract float GetMin();
     public abstract float GetMax();
 }
@@ -86,9 +87,9 @@ public class PlayerSpeedUpgrade : Upgrade
         return "Player speed " + BonusAsString();
     }
 
-    public override Image GetImage()
+    public override Sprite GetImage()
     {
-        throw new NotImplementedException();
+        return Resources.Load<Sprite>("icons/bonus_coffee");
     }
 
     public override float GetMin()
@@ -121,9 +122,9 @@ public class RotationSpeedUpgrade : Upgrade
         return "Rotation speed " + BonusAsString();
     }
 
-    public override Image GetImage()
+    public override Sprite GetImage()
     {
-        throw new NotImplementedException();
+        return Resources.Load<Sprite>("icons/bonus_coffee");
     }
 
     public override float GetMin()
@@ -161,9 +162,9 @@ public class FireRateUpgrade : Upgrade
         return "Fire interval " + BonusAsString() + "s";
     }
 
-    public override Image GetImage()
+    public override Sprite GetImage()
     {
-        throw new NotImplementedException();
+        return Resources.Load<Sprite>("icons/bonus_whiskey");
     }
 
     public override float GetMin()
@@ -196,9 +197,9 @@ public class RangeUpgrade : Upgrade
         return "Range " + BonusAsString();
     }
 
-    public override Image GetImage()
+    public override Sprite GetImage()
     {
-        throw new NotImplementedException();
+        return Resources.Load<Sprite>("icons/bonus_gunpowder");
     }
 
     public override float GetMin()
@@ -231,9 +232,9 @@ public class DamageUpgrade : Upgrade
         return "Damage " + BonusAsString();
     }
 
-    public override Image GetImage()
+    public override Sprite GetImage()
     {
-        throw new NotImplementedException();
+        return Resources.Load<Sprite>("icons/bonus_golden_bullet");
     }
 
     public override float GetMin()
@@ -266,9 +267,9 @@ public class HealthUpgrade : Upgrade
         return "Max health " + BonusAsString();
     }
 
-    public override Image GetImage()
+    public override Sprite GetImage()
     {
-        throw new NotImplementedException();
+        return Resources.Load<Sprite>("icons/bonus_burger");
     }
 
     public override float GetMin()
@@ -301,9 +302,9 @@ public class BulletsUpgrade : Upgrade
         return "Bullets per shot " + (Bonus > 0 ? "+" : "-") + "1";
     }
 
-    public override Image GetImage()
+    public override Sprite GetImage()
     {
-        throw new NotImplementedException();
+        return Resources.Load<Sprite>("icons/bonus_lens");
     }
 
     public override float GetMin()
