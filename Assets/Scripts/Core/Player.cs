@@ -16,6 +16,7 @@ namespace Core
 
         public Weapon currentWeapon;
         public GameObject sprite;
+        public ProgressBar healthBar;
         public Animator animator;
         public SpriteRenderer playerRenderer;
         public SpriteRenderer arrowRenderer;
@@ -41,9 +42,8 @@ namespace Core
         {
             _rb = GetComponent<Rigidbody2D>();
             _ctrl = GameObject.Find(Globals.Controller).GetComponent<Controller>();
-            playerRenderer.color = _playerData.Color;
-            Color arrowColor = new Color(_playerData.Color.r, _playerData.Color.g, _playerData.Color.b, ArrowAlpha);
-            arrowRenderer.color = arrowColor;
+            // FOR TESTS ONLY
+           // Initialize(new PlayerData(Globals.KeyMaps[0], playerColor, "Unknown"));
         }
 
         // Updated 60 times per seconds
@@ -55,6 +55,7 @@ namespace Core
                 Vector3 rot = Vector3.back * (turningSpeed * TurningSpeedAdjustment * Time.fixedDeltaTime);
                 transform.Rotate(rot);
                 sprite.transform.Rotate(-rot);
+                healthBar.transform.Rotate(-rot);
             }
 
             if (!Input.GetKey(keyRight) && Input.GetKey(keyLeft))
@@ -63,6 +64,7 @@ namespace Core
                 Vector3 rot = Vector3.forward * (turningSpeed * TurningSpeedAdjustment * Time.fixedDeltaTime);
                 transform.Rotate(rot);
                 sprite.transform.Rotate(-rot);
+                healthBar.transform.Rotate(-rot);
             }
             
             if (!(Input.GetKey(keyRight) && Input.GetKey(keyLeft)))
@@ -88,12 +90,24 @@ namespace Core
             if (b != null)
             {
                 _health -= b.GetDamage();
+                healthBar.SetProgress(_health, _playerData.InitialHealth);
                 Destroy(col.gameObject);
             }
         }
 
+        private void SetColor(Color color)
+        {
+            playerRenderer.color = color;
+            Color arrowColor = new Color(color.r, color.g, color.b, ArrowAlpha);
+            arrowRenderer.color = arrowColor;
+        }
+
         public void Initialize(PlayerData p)
         {
+            // Color
+            SetColor(p.Color);
+            
+            // Keys
             keyLeft = p.KeyMap[Globals.KeyFunctions.TurnLeft];
             keyRight = p.KeyMap[Globals.KeyFunctions.TurnRight];
             keyAction1 = p.KeyMap[Globals.KeyFunctions.Action1];
@@ -103,6 +117,8 @@ namespace Core
             _playerData = p;
 
             transform.Find(Globals.PlayerHeadSprite).GetComponent<SpriteRenderer>().color = p.Color;
+            _playerData = p;
+            healthBar.SetProgress(_health, _playerData.InitialHealth);
         }
 
         public PlayerData GetData()
