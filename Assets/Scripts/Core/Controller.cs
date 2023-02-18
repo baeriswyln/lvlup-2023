@@ -14,10 +14,13 @@ namespace Core
     {
         public Player playerPrefab;
 
-        [Header("UI Elements")] public GameObject pause;
+        [Header("UI Screens")] public GameObject pause;
         public GameObject levelUp;
         public GameObject end;
         public GameObject scores;
+        public GameObject countdown;
+        
+        [Header("UI Elements")]
         public TextMeshProUGUI scorePrefab;
         public TextMeshProUGUI playerToUpgrade;
         public PlayerStats playerStats;
@@ -33,6 +36,7 @@ namespace Core
         // Start is called before the first frame update
         private void Start()
         {
+            Time.timeScale = 0;
             StartRound();
         }
 
@@ -83,8 +87,9 @@ namespace Core
                 
                 newPlayer.Initialize(p);
             }
-
-            Time.timeScale = 1;
+            
+            // count down - sets the time scale to 1 at the end of the countdown
+            countdown.SetActive(true);
         }
 
         public void TogglePause()

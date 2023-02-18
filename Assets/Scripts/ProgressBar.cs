@@ -16,7 +16,6 @@ public class ProgressBar : MonoBehaviour
     public void SetProgress(float progress, float on)
     {
         float percent = progress / on;
-        Debug.Log(percent);
         barTransform.localScale = new Vector3(percent, transform.localScale.y, transform.localScale.z);
         bar.color = barGradient.Evaluate(percent);
     }
