@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Core;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -25,7 +26,9 @@ namespace DefaultNamespace.Menus
 
             for (int i = 0; i < Globals.PlayersMax; i++)
             {
+                var playerSelector = Instantiate(PlayerPrefab, PlayerContainer.transform);
                 _players.Add(Instantiate(PlayerPrefab, PlayerContainer.transform));
+                // playerSelector.transform.Get
             }
             
             UpdateNumberOfPlayers();
@@ -58,6 +61,13 @@ namespace DefaultNamespace.Menus
 
         public void StartGame()
         {
+            Globals.PlayersToSpawn = new List<PlayerData>();
+            
+            for(var i = 0; i < _playerCount; i++)
+            {
+                Globals.PlayersToSpawn.Add(new PlayerData(Globals.KeyMaps[i], Globals.PlayerColors[i]));
+            }
+            
             SceneManager.LoadScene(Globals.Scenes.Game);
         }
     }

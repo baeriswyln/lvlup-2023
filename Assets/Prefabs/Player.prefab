@@ -132,14 +132,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8e52beb8757e9c42b8fb777936441d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MovementSpeed: 0
-  TurningSpeed: 1
-  CurrentWeapon: {fileID: 5607770128537456992}
-  Health: 0
-  KeyRight: 100
-  KeyLeft: 97
-  KeyEvent1: 0
-  KeyEvent2: 0
+  movementSpeed: 1
+  turningSpeed: 1
+  currentWeapon: {fileID: 5607770128537456992}
+  health: 10
+  keyRight: 0
+  keyLeft: 0
+  keyAction1: 0
+  keyAction2: 0
 --- !u!50 &6308161556449031940
 Rigidbody2D:
   serializedVersion: 4
@@ -299,8 +299,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30175ebe3460dde46853c82d72d10fb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FireInterval: 2
-  BulletSpeed: 2
-  Range: 10
-  Damage: 1
+  fireInterval: 2
+  bulletSpeed: 2
+  range: 10
+  damage: 1
   bullet: {fileID: 3576712709480277159, guid: fb108b5131ab87d41a37d5151de9bbbf, type: 3}
