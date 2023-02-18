@@ -7,7 +7,7 @@ namespace DefaultNamespace.Menus
 {
     public class PlayerConfigurator : MonoBehaviour
     {
-        public RawImage Portrait;
+        public Image Portrait;
         public TextMeshProUGUI Color;
         public TextMeshProUGUI Name;
 

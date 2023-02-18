@@ -26,14 +26,14 @@ namespace DefaultNamespace
             public const string Action2 = "a2";
         }
 
-        public static List<(Color, string)> PlayerColors = new()
+        public static List<(Color, string, Sprite)> PlayerColors = new()
         {
-            (new Color(236f/255, 226f/255, 40f/255,1), "Yellow"),
-            (new Color(224f/255, 121f/255, 27f/255,1), "Brown"),
-            (new Color(226f/255, 39f/255, 28f/255,1), "Red"),
-            (new Color(58f/255, 156f/255, 218f/255,1), "Blue"),
-            (new Color(155f/255, 38f/255, 227f/255,1), "Violet"),
-            (new Color(38f/255, 198f/255, 17f/255,1), "Green"),
+            (new Color(236f/255, 226f/255, 40f/255,1), "Yellow", Resources.Load<Sprite>("icons/yellow_portrait")),
+            (new Color(224f/255, 121f/255, 27f/255,1), "Orange", Resources.Load<Sprite>("icons/orange_portrait")),
+            (new Color(226f/255, 39f/255, 28f/255,1), "Red", Resources.Load<Sprite>("icons/red_portrait")),
+            (new Color(58f/255, 156f/255, 218f/255,1), "Blue", Resources.Load<Sprite>("icons/blue_portrait")),
+            (new Color(155f/255, 38f/255, 227f/255,1), "Purple", Resources.Load<Sprite>("icons/purple_portrait")),
+            (new Color(38f/255, 198f/255, 17f/255,1), "Green", Resources.Load<Sprite>("icons/green_portrait")),
         };
 
         public static List<Dictionary<string, KeyCode>> KeyMaps = new()
