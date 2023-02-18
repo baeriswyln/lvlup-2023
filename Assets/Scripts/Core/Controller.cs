@@ -54,14 +54,14 @@ namespace Core
             levelUp.SetActive(false);
             _deathOrder = new List<PlayerData>();
 
-            // remove all trailing players from a previous round
-            foreach (var p in GameObject.FindObjectsByType<Player>(FindObjectsSortMode.None))
-            {
-                Destroy(p.gameObject);
-            }
+            // remove all trailing players, bullets and particle effects from a previous round
+            DestroyAll<Player>();
+            DestroyAll<Bullet>();
+            DestroyAll<ParticleSystem>();
             
+            // remove particles
             // remove all trailing bullets from a previous round
-            foreach (var p in GameObject.FindObjectsByType<Bullet>(FindObjectsSortMode.None))
+            foreach (var p in GameObject.FindObjectsByType<ParticleSystem>(FindObjectsSortMode.None))
             {
                 Destroy(p.gameObject);
             }
@@ -205,6 +205,14 @@ namespace Core
             }
 
             return _deathOrder[^1];
+        }
+        
+        private static void DestroyAll<T>() where T : Component
+        {
+            foreach (var p in GameObject.FindObjectsByType<T>(FindObjectsSortMode.None))
+            {
+                Destroy(p.gameObject);
+            }
         }
     }
 }

@@ -875,9 +875,10 @@ MonoBehaviour:
   animator: {fileID: 1981562893559957915}
   playerRenderer: {fileID: 1971575479995858717}
   arrowRenderer: {fileID: 3560104471255229109}
+  damageAnimation: {fileID: 4553287630450876385, guid: 15483e51212e3d74886ea57291f4639a, type: 3}
   keyRight: 0
   keyLeft: 0
-  keyAction1: 0
+  keyShoot: 0
   keyAction2: 0
 --- !u!50 &6308161556449031940
 Rigidbody2D:

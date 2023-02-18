@@ -22,6 +22,7 @@ namespace Core
         public Animator animator;
         public SpriteRenderer playerRenderer;
         public SpriteRenderer arrowRenderer;
+        public GameObject damageAnimation;
         
         // todo: remove and replace with map
         public KeyCode keyRight;
@@ -100,8 +101,15 @@ namespace Core
             var b = col.gameObject.GetComponent<Bullet>();
             if (b != null)
             {
+                // decrease health
                 _health -= b.GetDamage();
                 healthBar.SetProgress(_health, _playerData.InitialHealth);
+                
+                // show blood animation
+                var bloodAnimation = Instantiate(damageAnimation);
+                bloodAnimation.transform.position = col.transform.position;
+                
+                // destroy hitting bullet
                 Destroy(col.gameObject);
             }
         }
