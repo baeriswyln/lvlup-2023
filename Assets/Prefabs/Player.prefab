@@ -330,7 +330,7 @@ MonoBehaviour:
   animator: {fileID: 1981562893559957915}
   playerRenderer: {fileID: 1971575479995858717}
   arrowRenderer: {fileID: 3560104471255229109}
-  playerColor: {r: 0.9042858, g: 1, b: 0, a: 1}
+  playerColor: {r: 0, g: 1, b: 0.13914824, a: 1}
   keyRight: 0
   keyLeft: 0
   keyAction1: 0
