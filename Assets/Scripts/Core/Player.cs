@@ -14,6 +14,8 @@ namespace Core
         public int turningSpeed = 1;
 
         public Weapon currentWeapon;
+        public GameObject sprite;
+        public Animator animator;
         
         // todo: remove and replace with map
         public KeyCode keyRight;
@@ -28,6 +30,7 @@ namespace Core
         private Controller _ctrl;
 
         private const int TurningSpeedAdjustment = 200;
+        private const int DirectionId = 0;
 
         // Start is called before the first frame update
         private void Start()
@@ -42,13 +45,17 @@ namespace Core
             if (Input.GetKey(keyRight) && !Input.GetKey(keyLeft))
             {
                 // turn right
-                transform.Rotate(Vector3.back * (turningSpeed * TurningSpeedAdjustment * Time.fixedDeltaTime));
+                Vector3 rot = Vector3.back * (turningSpeed * TurningSpeedAdjustment * Time.fixedDeltaTime);
+                transform.Rotate(rot);
+                sprite.transform.Rotate(-rot);
             }
 
             if (!Input.GetKey(keyRight) && Input.GetKey(keyLeft))
             {
                 // turn left
-                transform.Rotate(Vector3.forward * (turningSpeed * TurningSpeedAdjustment * Time.fixedDeltaTime));
+                Vector3 rot = Vector3.forward * (turningSpeed * TurningSpeedAdjustment * Time.fixedDeltaTime);
+                transform.Rotate(rot);
+                sprite.transform.Rotate(-rot);
             }
             
             if (!(Input.GetKey(keyRight) && Input.GetKey(keyLeft)))
@@ -65,6 +72,7 @@ namespace Core
             {
                 _ctrl.AnnounceDeath(this);
             }
+            animator.SetInteger("direction", ((int)(transform.rotation.eulerAngles.z + 22.5d) / 45 + 10) % 8);
         }
 
         private void OnCollisionEnter2D(Collision2D col)
