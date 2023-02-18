@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DefaultNamespace;
 using Objects;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -14,6 +15,11 @@ namespace Core
         public int turningSpeed = 1;
 
         public Weapon currentWeapon;
+        public GameObject sprite;
+        public Animator animator;
+        public SpriteRenderer playerRenderer;
+        public SpriteRenderer arrowRenderer;
+        public Color playerColor;
         
         // todo: remove and replace with map
         public KeyCode keyRight;
@@ -28,12 +34,16 @@ namespace Core
         private Controller _ctrl;
 
         private const int TurningSpeedAdjustment = 200;
+        private const float ArrowAlpha = 0.3f;
 
         // Start is called before the first frame update
         private void Start()
         {
             _rb = GetComponent<Rigidbody2D>();
             _ctrl = GameObject.Find(Globals.Controller).GetComponent<Controller>();
+            playerRenderer.color = playerColor;
+            Color arrowColor = new Color(playerColor.r, playerColor.g, playerColor.b, ArrowAlpha);
+            arrowRenderer.color = arrowColor;
         }
 
         // Updated 60 times per seconds
@@ -42,13 +52,17 @@ namespace Core
             if (Input.GetKey(keyRight) && !Input.GetKey(keyLeft))
             {
                 // turn right
-                transform.Rotate(Vector3.back * (turningSpeed * TurningSpeedAdjustment * Time.fixedDeltaTime));
+                Vector3 rot = Vector3.back * (turningSpeed * TurningSpeedAdjustment * Time.fixedDeltaTime);
+                transform.Rotate(rot);
+                sprite.transform.Rotate(-rot);
             }
 
             if (!Input.GetKey(keyRight) && Input.GetKey(keyLeft))
             {
                 // turn left
-                transform.Rotate(Vector3.forward * (turningSpeed * TurningSpeedAdjustment * Time.fixedDeltaTime));
+                Vector3 rot = Vector3.forward * (turningSpeed * TurningSpeedAdjustment * Time.fixedDeltaTime);
+                transform.Rotate(rot);
+                sprite.transform.Rotate(-rot);
             }
             
             if (!(Input.GetKey(keyRight) && Input.GetKey(keyLeft)))
@@ -65,6 +79,7 @@ namespace Core
             {
                 _ctrl.AnnounceDeath(this);
             }
+            animator.SetInteger("direction", ((int)(transform.rotation.eulerAngles.z + 22.5d) / 45 + 10) % 8);
         }
 
         private void OnCollisionEnter2D(Collision2D col)
