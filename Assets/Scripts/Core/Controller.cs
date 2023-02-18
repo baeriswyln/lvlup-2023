@@ -79,6 +79,8 @@ namespace Core
                     idx = Random.Range(0, spawnPoints.Count);
                 } while (usedIdx.Contains(idx));
                 
+                usedIdx.Add(idx);
+                
                 var randomPosition = spawnPoints[idx].position;
                 var randomRotation = Quaternion.AngleAxis(Random.Range(0, 360), Vector3.forward);
                 var newPlayer = Instantiate(playerPrefab, randomPosition, randomRotation);
