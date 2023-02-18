@@ -52,8 +52,6 @@ public abstract class Upgrade
         do
         {
             Bonus = (float)Math.Round(Random.Range(GetMin(), GetMax()), 2);
-            Debug.Log(GetMin());
-            Debug.Log(GetMax());
         } while (Bonus == 0);
     }
 

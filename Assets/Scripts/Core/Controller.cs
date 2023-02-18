@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using System.Linq;
 using DefaultNamespace;
 using DefaultNamespace.Menus;
+using Objects;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -51,6 +53,12 @@ namespace Core
             {
                 Destroy(p.gameObject);
             }
+            
+            // remove all trailing bullets from a previous round
+            foreach (var p in GameObject.FindObjectsByType<Bullet>(FindObjectsSortMode.None))
+            {
+                Destroy(p.gameObject);
+            }
 
 
             // exit in case no players must be spawned (allows prototyping scene to work)
@@ -88,16 +96,21 @@ namespace Core
         public void EndRound()
         {
             Time.timeScale = 0;
-            
-            ShowUpgradeScreen();
 
-            // ShowFinalScore();
+            _deathOrder[^1].Points++;
+            if (_deathOrder[^1].Points >= Globals.WinningPoints)
+            {
+                ShowFinalScore();
+                return;
+            }
+
+            ShowUpgradeScreen();
         }
 
         private void ShowUpgradeScreen()
         {
             levelUp.SetActive(true);
-            
+
             var upgrades = PlayerUpgrades.GenerateUpgrades(Globals.PlayersToSpawn.Count);
             playerToUpgrade.SetText(_deathOrder[0].Name);
             _nextPlayerToSelectUpgrade = 0;
@@ -124,7 +137,7 @@ namespace Core
                 StartRound();
                 return;
             }
-            
+
             playerToUpgrade.SetText(_deathOrder[_nextPlayerToSelectUpgrade].Name);
         }
 
@@ -132,10 +145,12 @@ namespace Core
         {
             TextMeshProUGUI txt = null;
 
-            for (var i = _deathOrder.Count - 1; i >= 0; i--)
+            var scoreboard = _deathOrder.OrderBy(p => p.Points).ToList();
+
+            for (var i = scoreboard.Count - 1; i >= 0; i--)
             {
                 txt = Instantiate(scorePrefab, scores.transform);
-                txt.SetText(_deathOrder.Count - i + ". " + _deathOrder[i].Name);
+                txt.SetText(scoreboard[i].Name + " - " + scoreboard[i].Points + " wins");
             }
 
             var entrySize = txt.GetComponent<RectTransform>().sizeDelta;

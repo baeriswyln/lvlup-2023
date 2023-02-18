@@ -127,6 +127,8 @@ namespace Core
         public string Name;
         public Color Color;
 
+        public int Points;
+
         public float InitialHealth = Globals.InitPlayerVals.Health;
         public float MovementSpeed = Globals.InitPlayerVals.MovementSpeed;
         public float TurningSpeed = Globals.InitPlayerVals.TurningSpeed;

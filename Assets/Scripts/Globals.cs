@@ -11,6 +11,8 @@ namespace DefaultNamespace
         public const int PlayersMin = 2;
         public const int PlayersMax = 6;
 
+        public const int WinningPoints = 3;
+
         public const string PlayerHeadSprite = "Head";
         public const string Controller = "Controller";
 
