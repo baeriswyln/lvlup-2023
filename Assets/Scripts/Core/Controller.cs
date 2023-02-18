@@ -21,6 +21,7 @@ namespace Core
         public GameObject scores;
         public TextMeshProUGUI scorePrefab;
         public TextMeshProUGUI playerToUpgrade;
+        public PlayerStats playerStats;
         public UpgradePrefab upgradePrefab;
         public Transform upgradeContainer;
 
@@ -113,7 +114,7 @@ namespace Core
             levelUp.SetActive(true);
 
             var upgrades = PlayerUpgrades.GenerateUpgrades(Globals.PlayersToSpawn.Count);
-            playerToUpgrade.SetText(_deathOrder[0].Name);
+            playerStats.SetStats(_deathOrder[0]);
             _nextPlayerToSelectUpgrade = 0;
 
             foreach (var upgrade in upgrades)
@@ -139,7 +140,7 @@ namespace Core
                 return;
             }
 
-            playerToUpgrade.SetText(_deathOrder[_nextPlayerToSelectUpgrade].Name);
+            playerStats.SetStats(_deathOrder[_nextPlayerToSelectUpgrade]);
         }
 
         public void ShowFinalScore()
