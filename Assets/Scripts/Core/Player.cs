@@ -85,6 +85,7 @@ namespace Core
             keyAction2 = p.KeyMap[Globals.KeyFunctions.Action2];
 
             _health = p.InitialHealth;
+            _playerData = p;
 
             transform.Find(Globals.PlayerHeadSprite).GetComponent<SpriteRenderer>().color = p.Color;
         }
@@ -101,12 +102,13 @@ namespace Core
         public string Name;
         public Color Color;
         
-        public float InitialHealth = 10;
+        public float InitialHealth = 2;
 
-        public PlayerData(Dictionary<string, KeyCode> keyMap, Color color)
+        public PlayerData(Dictionary<string, KeyCode> keyMap, Color color, string name)
         {
             KeyMap = keyMap;
             Color = color;
+            Name = name;
         }
     }
 }

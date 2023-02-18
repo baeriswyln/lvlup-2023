@@ -474,7 +474,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TextNumberOfPlayers: {fileID: 502864542}
   PlayerContainer: {fileID: 1563779499}
-  PlayerPrefab: {fileID: 1500971482591730630, guid: 8a2c15ceca01cb14dacc9b7837c76d9b, type: 3}
+  PlayerPrefab: {fileID: 4348580501787025069, guid: 8a2c15ceca01cb14dacc9b7837c76d9b, type: 3}
   ButtonIncreaseNbrPlayers: {fileID: 770955550}
   ButtonDecreaseNbrPlayers: {fileID: 1433945822}
 --- !u!1 &373489991

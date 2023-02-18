@@ -10,7 +10,7 @@ namespace DefaultNamespace
 
         public const int PlayersMin = 2;
         public const int PlayersMax = 6;
-        
+
         public const string PlayerHeadSprite = "Head";
         public const string Controller = "Controller";
 
@@ -24,14 +24,14 @@ namespace DefaultNamespace
             public const string Action2 = "a2";
         }
 
-        public static List<Color> PlayerColors = new()
+        public static List<(Color, string)> PlayerColors = new()
         {
-            Color.black,
-            Color.red,
-            Color.green,
-            Color.blue,
-            Color.magenta,
-            Color.yellow
+            (new Color(236, 226, 40), "Yellow"),
+            (new Color(224, 121, 27), "Brown"),
+            (new Color(226, 39, 28), "Red"),
+            (new Color(58, 156, 218), "Blue"),
+            (new Color(155, 38, 227), "Violet"),
+            (new Color(38, 198, 17), "Green"),
         };
 
         public static List<Dictionary<string, KeyCode>> KeyMaps = new()
@@ -83,7 +83,7 @@ namespace DefaultNamespace
         public static class Scenes
         {
             public const string Game = "Game";
-            public const string Menu = "MainMenu";   
+            public const string Menu = "MainMenu";
         }
     }
 }
