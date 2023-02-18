@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DefaultNamespace;
 using Objects;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -16,6 +17,9 @@ namespace Core
         public Weapon currentWeapon;
         public GameObject sprite;
         public Animator animator;
+        public SpriteRenderer playerRenderer;
+        public SpriteRenderer arrowRenderer;
+        public Color playerColor;
         
         // todo: remove and replace with map
         public KeyCode keyRight;
@@ -30,13 +34,16 @@ namespace Core
         private Controller _ctrl;
 
         private const int TurningSpeedAdjustment = 200;
-        private const int DirectionId = 0;
+        private const float ArrowAlpha = 0.3f;
 
         // Start is called before the first frame update
         private void Start()
         {
             _rb = GetComponent<Rigidbody2D>();
             _ctrl = GameObject.Find(Globals.Controller).GetComponent<Controller>();
+            playerRenderer.color = playerColor;
+            Color arrowColor = new Color(playerColor.r, playerColor.g, playerColor.b, ArrowAlpha);
+            arrowRenderer.color = arrowColor;
         }
 
         // Updated 60 times per seconds
