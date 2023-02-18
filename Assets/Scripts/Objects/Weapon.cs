@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.Timers;
+using DefaultNamespace;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -8,10 +10,17 @@ namespace Objects
 {
     public class Weapon : MonoBehaviour
     {
-        [FormerlySerializedAs("FireInterval")] public float fireInterval;
-        [FormerlySerializedAs("BulletSpeed")] public float bulletSpeed;
-        [FormerlySerializedAs("Range")] public float range;
-        [FormerlySerializedAs("Damage")] public float damage;
+        public enum WeaponType
+        {
+            Shotgun,
+            LongRange,
+            Pistol
+        }
+
+        public float fireInterval;
+        public float bulletSpeed;
+        public float range;
+        public float damage;
         public int bulletsPerShot = 1;
 
         public GameObject bullet;
@@ -26,7 +35,7 @@ namespace Objects
         public void Start()
         {
             counter = 0;
-            countToFire = (int) (fireInterval / intervalSec);
+            countToFire = (int)(fireInterval / intervalSec);
             InvokeRepeating("IntervalUpdate", intervalSec, intervalSec);
         }
 
@@ -45,13 +54,43 @@ namespace Objects
         {
             // show particles with initial speed
             GameObject bulletInstance;
-            Vector3 offset = transform.up;
 
+            // shoot bullets adding a spray
+            for (var i = 0; i < bulletsPerShot; i++)
+            {
+                var eulerAnglesZ = transform.rotation.eulerAngles.z;
+                // remove half of the total angle between outer most shots (centers the shots)
+                eulerAnglesZ -= (bulletsPerShot - 1) * Globals.ShootingAngleDelta / 2f;
+                // add offset for current shot
+                eulerAnglesZ += Globals.ShootingAngleDelta * i;
+                var rotation = Quaternion.Euler(0, 0, eulerAnglesZ);
 
-            bulletInstance = Instantiate(bullet, transform.position + offset, transform.rotation);
-            
-            Bullet b = bulletInstance.AddComponent<Bullet>();
-            b.SetProperties(this);
+                // now, the same things must be done for the initial position. otherwise, the bullets collide and spread
+                // around uncontrolled.
+                var bulletWidth = bullet.transform.localScale.x * 2f;
+                var offset = transform.up;
+                offset -= ((bulletsPerShot - 1) * bulletWidth) * -transform.right;
+                offset += (bulletWidth * i) * -transform.right;
+
+                bulletInstance = Instantiate(bullet, transform.position + offset, rotation);
+                bulletInstance.AddComponent<Bullet>().SetProperties(this);
+            }
+        }
+
+        public class InitValues
+        {
+            public readonly float Range;
+            public readonly float Damage;
+            public readonly int BulletsPerShot;
+            public readonly float FireInterval;
+
+            public InitValues(float range, float damage, int bulletsPerShot, float fireInterval)
+            {
+                Range = range;
+                Damage = damage;
+                BulletsPerShot = bulletsPerShot;
+                FireInterval = fireInterval;
+            }
         }
     }
 }

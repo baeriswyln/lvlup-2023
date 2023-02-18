@@ -27,11 +27,8 @@ public class PlayerUpgrades
                 case < 80:
                     upgrades.Add(new DamageUpgrade());
                     break;
-                case < 95:
-                    upgrades.Add(new HealthUpgrade());
-                    break;
                 default:
-                    upgrades.Add(new BulletsUpgrade());
+                    upgrades.Add(new HealthUpgrade());
                     break;
             }
         }
@@ -248,40 +245,5 @@ public class HealthUpgrade : Upgrade
     public override float GetMax()
     {
         return 5f;
-    }
-}
-
-public class BulletsUpgrade : Upgrade
-{
-    private const int MinVal = 1;
-
-    public override void ApplyToPlayer(PlayerData p)
-    {
-        p.BulletsPerShot += (Bonus > 0 ? 1 : -1);
-
-        if (p.BulletsPerShot < MinVal)
-        {
-            p.BulletsPerShot = MinVal;
-        }
-    }
-
-    public override string GetMessage()
-    {
-        return "Bullets per shot " + (Bonus > 0 ? "+" : "-") + "1";
-    }
-
-    public override Sprite GetImage()
-    {
-        return Resources.Load<Sprite>("icons/bonus_bullets");
-    }
-
-    public override float GetMin()
-    {
-        return -1f;
-    }
-
-    public override float GetMax()
-    {
-        return 1f;
     }
 }

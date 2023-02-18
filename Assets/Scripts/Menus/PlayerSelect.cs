@@ -28,8 +28,8 @@ namespace DefaultNamespace.Menus
             {
                 var playerSelector = Instantiate(PlayerPrefab, PlayerContainer.transform);
                 _players.Add(playerSelector);
-                playerSelector.Portrait.sprite = Globals.PlayerColors[i].Item3;
-                playerSelector.Color.SetText(Globals.PlayerColors[i].Item2);
+                playerSelector.Portrait.sprite = Globals.Players[i].Item3;
+                playerSelector.Color.SetText(Globals.Players[i].Item2);
                 playerSelector.TurnLeft.SetText(Globals.KeyMaps[i][Globals.KeyFunctions.TurnLeft].ToString());
                 playerSelector.TurnRight.SetText(Globals.KeyMaps[i][Globals.KeyFunctions.TurnRight].ToString());
                 playerSelector.Action1.SetText(Globals.KeyMaps[i][Globals.KeyFunctions.Action1].ToString());
@@ -70,7 +70,7 @@ namespace DefaultNamespace.Menus
 
             for (var i = 0; i < _playerCount; i++)
             {
-                Globals.PlayersToSpawn.Add(new PlayerData(Globals.KeyMaps[i], Globals.PlayerColors[i].Item1, Globals.PlayerColors[i].Item2));
+                Globals.PlayersToSpawn.Add(new PlayerData(Globals.KeyMaps[i], Globals.Players[i].Item1, Globals.Players[i].Item2, Globals.Players[i].Item4));
             }
 
             SceneManager.LoadScene(Globals.Scenes.Game);

@@ -151,16 +151,21 @@ namespace Core
         public float MovementSpeed = Globals.InitPlayerVals.MovementSpeed;
         public float TurningSpeed = Globals.InitPlayerVals.TurningSpeed;
         
-        public float FireInterval = Globals.InitPlayerVals.FireInterval;
-        public float FireRange = Globals.InitPlayerVals.FireRange;
-        public float FireDamage = Globals.InitPlayerVals.FireDamage;
-        public int BulletsPerShot = Globals.InitPlayerVals.BulletsPerShot;
+        public float FireInterval;
+        public float FireRange;
+        public float FireDamage;
+        public readonly int BulletsPerShot;
 
-        public PlayerData(Dictionary<string, KeyCode> keyMap, Color color, string name)
+        public PlayerData(Dictionary<string, KeyCode> keyMap, Color color, string name, Weapon.WeaponType type)
         {
             KeyMap = keyMap;
             Color = color;
             Name = name;
+
+            FireInterval = Globals.InitWeaponValues[type].FireInterval;
+            FireRange = Globals.InitWeaponValues[type].Range;
+            FireDamage = Globals.InitWeaponValues[type].Damage;
+            BulletsPerShot = Globals.InitWeaponValues[type].BulletsPerShot;
         }
     }
 }

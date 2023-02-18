@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Core;
+using Objects;
 using UnityEngine;
 
 namespace DefaultNamespace
@@ -12,6 +13,7 @@ namespace DefaultNamespace
         public const int PlayersMax = 6;
 
         public const int WinningPoints = 3;
+        public const int ShootingAngleDelta = 10;
 
         public const string PlayerHeadSprite = "Head";
         public const string Controller = "Controller";
@@ -26,17 +28,17 @@ namespace DefaultNamespace
             public const string Action2 = "a2";
         }
 
-        public static List<(Color, string, Sprite)> PlayerColors = new()
+        public static readonly List<(Color, string, Sprite, Weapon.WeaponType)> Players = new()
         {
-            (new Color(236f/255, 226f/255, 40f/255,1), "Yellow", Resources.Load<Sprite>("icons/yellow_portrait")),
-            (new Color(224f/255, 121f/255, 27f/255,1), "Orange", Resources.Load<Sprite>("icons/orange_portrait")),
-            (new Color(226f/255, 39f/255, 28f/255,1), "Red", Resources.Load<Sprite>("icons/red_portrait")),
-            (new Color(58f/255, 156f/255, 218f/255,1), "Blue", Resources.Load<Sprite>("icons/blue_portrait")),
-            (new Color(155f/255, 38f/255, 227f/255,1), "Purple", Resources.Load<Sprite>("icons/purple_portrait")),
-            (new Color(38f/255, 198f/255, 17f/255,1), "Green", Resources.Load<Sprite>("icons/green_portrait")),
+            (new Color(236f/255, 226f/255, 40f/255,1), "Jesse Lasso", Resources.Load<Sprite>("icons/yellow_portrait"), Weapon.WeaponType.Pistol),
+            (new Color(224f/255, 121f/255, 27f/255,1), "Wyatt Granger", Resources.Load<Sprite>("icons/orange_portrait"), Weapon.WeaponType.LongRange),
+            (new Color(226f/255, 39f/255, 28f/255,1), "Silas McCoy", Resources.Load<Sprite>("icons/red_portrait"), Weapon.WeaponType.Shotgun),
+            (new Color(58f/255, 156f/255, 218f/255,1), "Cheyenne Parker", Resources.Load<Sprite>("icons/blue_portrait"), Weapon.WeaponType.LongRange),
+            (new Color(155f/255, 38f/255, 227f/255,1), "Savannah West", Resources.Load<Sprite>("icons/purple_portrait"), Weapon.WeaponType.Pistol),
+            (new Color(38f/255, 198f/255, 17f/255,1), "Abigail Yates", Resources.Load<Sprite>("icons/green_portrait"), Weapon.WeaponType.Shotgun),
         };
 
-        public static List<Dictionary<string, KeyCode>> KeyMaps = new()
+        public static readonly List<Dictionary<string, KeyCode>> KeyMaps = new()
         {
             new Dictionary<string, KeyCode>()
             {
@@ -81,17 +83,20 @@ namespace DefaultNamespace
                 [KeyFunctions.Action2] = KeyCode.Comma
             }
         };
+        
+        
+        public static readonly Dictionary<Weapon.WeaponType, Weapon.InitValues> InitWeaponValues = new()
+        {
+            [Weapon.WeaponType.Pistol] = new Weapon.InitValues(10, 1, 1, 1),
+            [Weapon.WeaponType.LongRange] = new Weapon.InitValues(20, 3, 1, 4),
+            [Weapon.WeaponType.Shotgun] = new Weapon.InitValues(5, 0.2f, 5, 2)
+        };
 
         public static class InitPlayerVals
         {
             public const float MovementSpeed = 1;
             public const float TurningSpeed = 1;
             public const float Health = 2;
-            
-            public const float FireInterval = 1;
-            public const float FireRange = 20;
-            public const float FireDamage = 1;
-            public const int BulletsPerShot = 1;
         }
 
         public static class Scenes
