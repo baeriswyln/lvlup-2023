@@ -14,12 +14,30 @@ namespace Objects
         [FormerlySerializedAs("Damage")] public float damage;
 
         public GameObject bullet;
+        public ProgressBar bar;
 
         private Vector3 _offset;
-        
+
+        private int counter;
+        private int countToFire;
+        private float intervalSec = 0.1f;
+
         public void Start()
         {
-            InvokeRepeating("Shoot", fireInterval, fireInterval);
+            counter = 0;
+            countToFire = (int) (fireInterval / intervalSec);
+            InvokeRepeating("IntervalUpdate", intervalSec, intervalSec);
+        }
+
+        void IntervalUpdate()
+        {
+            counter++;
+            bar.SetProgress(counter, countToFire);
+            if (counter >= countToFire)
+            {
+                Shoot();
+                counter = 0;
+            }
         }
 
         void Shoot()

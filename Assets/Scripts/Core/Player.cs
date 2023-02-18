@@ -17,10 +17,11 @@ namespace Core
         public Weapon currentWeapon;
         public GameObject sprite;
         public ProgressBar healthBar;
+        public ProgressBar loadBar;
+        public GameObject bars;
         public Animator animator;
         public SpriteRenderer playerRenderer;
         public SpriteRenderer arrowRenderer;
-        public Color playerColor;
         
         // todo: remove and replace with map
         public KeyCode keyRight;
@@ -42,8 +43,6 @@ namespace Core
         {
             _rb = GetComponent<Rigidbody2D>();
             _ctrl = GameObject.Find(Globals.Controller).GetComponent<Controller>();
-            // FOR TESTS ONLY
-           // Initialize(new PlayerData(Globals.KeyMaps[0], playerColor, "Unknown"));
         }
 
         // Updated 60 times per seconds
@@ -55,7 +54,7 @@ namespace Core
                 Vector3 rot = Vector3.back * (turningSpeed * TurningSpeedAdjustment * Time.fixedDeltaTime);
                 transform.Rotate(rot);
                 sprite.transform.Rotate(-rot);
-                healthBar.transform.Rotate(-rot);
+                bars.transform.Rotate(-rot);
             }
 
             if (!Input.GetKey(keyRight) && Input.GetKey(keyLeft))
@@ -64,7 +63,7 @@ namespace Core
                 Vector3 rot = Vector3.forward * (turningSpeed * TurningSpeedAdjustment * Time.fixedDeltaTime);
                 transform.Rotate(rot);
                 sprite.transform.Rotate(-rot);
-                healthBar.transform.Rotate(-rot);
+                bars.transform.Rotate(-rot);
             }
             
             if (!(Input.GetKey(keyRight) && Input.GetKey(keyLeft)))
