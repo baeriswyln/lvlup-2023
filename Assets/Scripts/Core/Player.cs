@@ -16,11 +16,13 @@ namespace Core
 
         public Weapon currentWeapon;
         public GameObject sprite;
+        public ProgressBar healthBar;
+        public ProgressBar loadBar;
+        public GameObject bars;
         public Animator animator;
         public SpriteRenderer playerRenderer;
         public SpriteRenderer arrowRenderer;
-        public Color playerColor;
-
+        
         // todo: remove and replace with map
         public KeyCode keyRight;
         public KeyCode keyLeft;
@@ -55,6 +57,7 @@ namespace Core
                 Vector3 rot = Vector3.back * (turningSpeed * TurningSpeedAdjustment * Time.fixedDeltaTime);
                 transform.Rotate(rot);
                 sprite.transform.Rotate(-rot);
+                bars.transform.Rotate(-rot);
             }
 
             if (!Input.GetKey(keyRight) && Input.GetKey(keyLeft))
@@ -63,8 +66,9 @@ namespace Core
                 Vector3 rot = Vector3.forward * (turningSpeed * TurningSpeedAdjustment * Time.fixedDeltaTime);
                 transform.Rotate(rot);
                 sprite.transform.Rotate(-rot);
+                bars.transform.Rotate(-rot);
             }
-
+            
             if (!(Input.GetKey(keyRight) && Input.GetKey(keyLeft)))
             {
                 // go in forward facing direction
@@ -89,18 +93,30 @@ namespace Core
             if (b != null)
             {
                 _health -= b.GetDamage();
+                healthBar.SetProgress(_health, _playerData.InitialHealth);
                 Destroy(col.gameObject);
             }
         }
 
+        private void SetColor(Color color)
+        {
+            playerRenderer.color = color;
+            Color arrowColor = new Color(color.r, color.g, color.b, ArrowAlpha);
+            arrowRenderer.color = arrowColor;
+        }
+
         public void Initialize(PlayerData p)
         {
+            // Color
+            SetColor(p.Color);
+            
+            // Keys
             keyLeft = p.KeyMap[Globals.KeyFunctions.TurnLeft];
             keyRight = p.KeyMap[Globals.KeyFunctions.TurnRight];
             keyAction1 = p.KeyMap[Globals.KeyFunctions.Action1];
             keyAction2 = p.KeyMap[Globals.KeyFunctions.Action2];
 
-            // set player values
+            // Player properties
             _health = p.InitialHealth;
             movementSpeed = p.MovementSpeed;
             turningSpeed = p.TurningSpeed;
@@ -113,6 +129,8 @@ namespace Core
             _playerData = p;
 
             transform.Find(Globals.PlayerHeadSprite).GetComponent<SpriteRenderer>().color = p.Color;
+            _playerData = p;
+            healthBar.SetProgress(_health, _playerData.InitialHealth);
         }
 
         public PlayerData GetData()
