@@ -425,7 +425,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -100
+  m_SortingOrder: -110
   m_Sprite: {fileID: 21300000, guid: 05b0c1c97d9a606469246d05a282ba63, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -449,7 +449,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17a76c87f676cbf43a3ae472a3182171, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  yOffset: 1
+  yOffset: 1.1
 --- !u!1 &4751175244597001974
 GameObject:
   m_ObjectHideFlags: 0
@@ -825,7 +825,7 @@ GameObject:
   - component: {fileID: 5352302198155091959}
   - component: {fileID: 4854983974304686201}
   - component: {fileID: 6308161556449031940}
-  - component: {fileID: 6552197799337895372}
+  - component: {fileID: 2606091784211295549}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -906,8 +906,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!58 &6552197799337895372
-CircleCollider2D:
+--- !u!70 &2606091784211295549
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -938,9 +938,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.4551612, y: 0.55144614}
-  serializedVersion: 2
-  m_Radius: 1.5066068
+  m_Offset: {x: 0.12110161, y: 0.9385379}
+  m_Size: {x: 0.5403678, y: 3.8055212}
+  m_Direction: 0
 --- !u!1 &7815360747855605576
 GameObject:
   m_ObjectHideFlags: 0
@@ -1042,6 +1042,7 @@ MonoBehaviour:
   bulletSpeed: 2
   range: 10
   damage: 1
+  bulletsPerShot: 1
   bullet: {fileID: 3576712709480277159, guid: fb108b5131ab87d41a37d5151de9bbbf, type: 3}
   bar: {fileID: 5761117153356389967}
 --- !u!1 &8253998955023567990
