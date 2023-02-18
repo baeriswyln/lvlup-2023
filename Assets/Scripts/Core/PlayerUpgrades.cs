@@ -15,16 +15,13 @@ public class PlayerUpgrades
         {
             switch (Random.Range(0, 100))
             {
-                case < 10:
+                case < 20:
                     upgrades.Add(new PlayerSpeedUpgrade());
                     break;
-                case < 20:
-                    upgrades.Add(new RotationSpeedUpgrade());
-                    break;
-                case < 30:
+                case < 40:
                     upgrades.Add(new RangeUpgrade());
                     break;
-                case < 50:
+                case < 60:
                     upgrades.Add(new FireRateUpgrade());
                     break;
                 case < 80:
@@ -75,42 +72,13 @@ public class PlayerSpeedUpgrade : Upgrade
     public override void ApplyToPlayer(PlayerData p)
     {
         p.MovementSpeed += Bonus;
+        p.TurningSpeed += Bonus;
 
         if (p.MovementSpeed < MinVal)
         {
             p.MovementSpeed = MinVal;
         }
-    }
-
-    public override string GetMessage()
-    {
-        return "Player speed " + BonusAsString();
-    }
-
-    public override Sprite GetImage()
-    {
-        return Resources.Load<Sprite>("icons/bonus_coffee");
-    }
-
-    public override float GetMin()
-    {
-        return -0.2f;
-    }
-
-    public override float GetMax()
-    {
-        return 0.2f;
-    }
-}
-
-public class RotationSpeedUpgrade : Upgrade
-{
-    private const float MinVal = 0.2f;
-
-    public override void ApplyToPlayer(PlayerData p)
-    {
-        p.TurningSpeed += Bonus;
-
+        
         if (p.TurningSpeed < MinVal)
         {
             p.TurningSpeed = MinVal;
@@ -119,7 +87,7 @@ public class RotationSpeedUpgrade : Upgrade
 
     public override string GetMessage()
     {
-        return "Rotation speed " + BonusAsString();
+        return "Player speed " + BonusAsString();
     }
 
     public override Sprite GetImage()
@@ -304,7 +272,7 @@ public class BulletsUpgrade : Upgrade
 
     public override Sprite GetImage()
     {
-        return Resources.Load<Sprite>("icons/bonus_lens");
+        return Resources.Load<Sprite>("icons/bonus_bullets");
     }
 
     public override float GetMin()
