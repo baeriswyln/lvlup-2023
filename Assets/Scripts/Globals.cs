@@ -26,12 +26,12 @@ namespace DefaultNamespace
 
         public static List<(Color, string)> PlayerColors = new()
         {
-            (new Color(236, 226, 40), "Yellow"),
-            (new Color(224, 121, 27), "Brown"),
-            (new Color(226, 39, 28), "Red"),
-            (new Color(58, 156, 218), "Blue"),
-            (new Color(155, 38, 227), "Violet"),
-            (new Color(38, 198, 17), "Green"),
+            (new Color(236f/255, 226f/255, 40f/255,1), "Yellow"),
+            (new Color(224f/255, 121f/255, 27f/255,1), "Brown"),
+            (new Color(226f/255, 39f/255, 28f/255,1), "Red"),
+            (new Color(58f/255, 156f/255, 218f/255,1), "Blue"),
+            (new Color(155f/255, 38f/255, 227f/255,1), "Violet"),
+            (new Color(38f/255, 198f/255, 17f/255,1), "Green"),
         };
 
         public static List<Dictionary<string, KeyCode>> KeyMaps = new()

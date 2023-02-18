@@ -41,8 +41,8 @@ namespace Core
         {
             _rb = GetComponent<Rigidbody2D>();
             _ctrl = GameObject.Find(Globals.Controller).GetComponent<Controller>();
-            playerRenderer.color = playerColor;
-            Color arrowColor = new Color(playerColor.r, playerColor.g, playerColor.b, ArrowAlpha);
+            playerRenderer.color = _playerData.Color;
+            Color arrowColor = new Color(_playerData.Color.r, _playerData.Color.g, _playerData.Color.b, ArrowAlpha);
             arrowRenderer.color = arrowColor;
         }
 

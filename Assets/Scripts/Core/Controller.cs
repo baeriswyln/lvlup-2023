@@ -59,6 +59,7 @@ namespace Core
                 var randomPosition = new Vector3(Random.Range(-dx, dx), Random.Range(-dy, dy), 0);
                 var randomRotation = Quaternion.AngleAxis(Random.Range(0, 360), Vector3.forward);
                 var newPlayer = Instantiate(playerPrefab, randomPosition, randomRotation);
+                newPlayer.sprite.transform.Rotate(-randomRotation.eulerAngles);
 
                 newPlayer.Initialize(p);
             }
