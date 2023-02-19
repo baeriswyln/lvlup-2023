@@ -103,6 +103,8 @@ namespace DefaultNamespace
         {
             public const string Game = "Game";
             public const string Menu = "MainMenu";
+            public const string Title = "Title";
+            public const string About = "About";
         }
     }
 }
