@@ -96,7 +96,7 @@ namespace DefaultNamespace
         {
             public const float MovementSpeed = 1;
             public const float TurningSpeed = 1;
-            public const float Health = 2;
+            public const float Health = 4;
         }
 
         public static class Scenes
