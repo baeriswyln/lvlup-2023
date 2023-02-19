@@ -46,7 +46,7 @@ namespace Objects
             bar.SetProgress(counter, countToFire);
         }
 
-        public void Shoot(AudioSource source, AudioClip clip)
+        public void Shoot(AudioSource source, AudioClip clip, Color playerColor)
         {
             if (counter < countToFire) return;
 
@@ -76,6 +76,7 @@ namespace Objects
 
                 bulletInstance = Instantiate(bullet, transform.position + offset, rotation);
                 bulletInstance.AddComponent<Bullet>().SetProperties(this);
+                bulletInstance.GetComponent<SpriteRenderer>().color = playerColor;
             }
         }
 
