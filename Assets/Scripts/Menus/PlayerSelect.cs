@@ -16,14 +16,28 @@ namespace DefaultNamespace.Menus
 
         public Button ButtonIncreaseNbrPlayers;
         public Button ButtonDecreaseNbrPlayers;
+        public Button ButtonStart;
+        public Button ButtonYellow;
+        public Button ButtonOrange;
+        public Button ButtonRed;
+        public Button ButtonBlue;
+        public Button ButtonPurple;
+        public Button ButtonGreen;
 
         private int _playerCount = Globals.PlayersMin;
         private List<PlayerConfigurator> _players;
+        public List<GameObject> _playersRows;
 
         private void Start()
         {
             _players = new List<PlayerConfigurator>();
 
+            for (int i = 0; i < Globals.Players.Count; i++)
+            {
+                
+            }
+
+            // TODO : 
             for (int i = 0; i < Globals.PlayersMax; i++)
             {
                 var playerSelector = Instantiate(PlayerPrefab, PlayerContainer.transform);
@@ -41,10 +55,17 @@ namespace DefaultNamespace.Menus
 
         private void UpdateNumberOfPlayers()
         {
+            if (_playerCount < Globals.PlayersMin) _playerCount = Globals.PlayersMin;
+            
             TextNumberOfPlayers.text = _playerCount.ToString();
 
             ButtonIncreaseNbrPlayers.enabled = _playerCount < Globals.PlayersMax;
             ButtonDecreaseNbrPlayers.enabled = _playerCount > Globals.PlayersMin;
+            
+            for (int i = 0; i < _playersRows.Count; i++)
+            {
+                _playersRows[i].SetActive(i-1 <= _playerCount);
+            }
 
             for (int i = 0; i < Globals.PlayersMax; i++)
             {
