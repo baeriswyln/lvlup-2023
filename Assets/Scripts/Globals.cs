@@ -33,8 +33,8 @@ namespace DefaultNamespace
             (new Color(236f/255, 226f/255, 40f/255,1), "Jesse Lasso", Resources.Load<Sprite>("icons/yellow_portrait"), Weapon.WeaponType.Pistol),
             (new Color(224f/255, 121f/255, 27f/255,1), "Wyatt Granger", Resources.Load<Sprite>("icons/orange_portrait"), Weapon.WeaponType.LongRange),
             (new Color(226f/255, 39f/255, 28f/255,1), "Silas McCoy", Resources.Load<Sprite>("icons/red_portrait"), Weapon.WeaponType.Shotgun),
-            (new Color(58f/255, 156f/255, 218f/255,1), "Cheyenne Parker", Resources.Load<Sprite>("icons/blue_portrait"), Weapon.WeaponType.LongRange),
-            (new Color(155f/255, 38f/255, 227f/255,1), "Savannah West", Resources.Load<Sprite>("icons/purple_portrait"), Weapon.WeaponType.Pistol),
+            (new Color(58f/255, 156f/255, 218f/255,1), "Cheyenne Parker", Resources.Load<Sprite>("icons/blue_portrait"), Weapon.WeaponType.Pistol),
+            (new Color(155f/255, 38f/255, 227f/255,1), "Savannah West", Resources.Load<Sprite>("icons/purple_portrait"), Weapon.WeaponType.LongRange),
             (new Color(38f/255, 198f/255, 17f/255,1), "Abigail Yates", Resources.Load<Sprite>("icons/green_portrait"), Weapon.WeaponType.Shotgun),
         };
 
@@ -89,14 +89,14 @@ namespace DefaultNamespace
         {
             [Weapon.WeaponType.Pistol] = new Weapon.InitValues(10, 1, 1, 1),
             [Weapon.WeaponType.LongRange] = new Weapon.InitValues(20, 3, 1, 4),
-            [Weapon.WeaponType.Shotgun] = new Weapon.InitValues(5, 0.2f, 5, 2)
+            [Weapon.WeaponType.Shotgun] = new Weapon.InitValues(5, 0.4f, 5, 2)
         };
 
         public static class InitPlayerVals
         {
             public const float MovementSpeed = 1;
             public const float TurningSpeed = 1;
-            public const float Health = 4;
+            public const float Health = 3;
         }
 
         public static class Scenes
