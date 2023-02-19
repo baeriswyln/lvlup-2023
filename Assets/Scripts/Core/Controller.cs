@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DefaultNamespace;
 using DefaultNamespace.Menus;
+using Menus;
 using Objects;
 using TMPro;
 using UnityEngine;
@@ -15,7 +16,7 @@ namespace Core
         public Player playerPrefab;
 
         [Header("UI Screens")] public GameObject pause;
-        public GameObject levelUp;
+        public UILevelUp levelUp;
         public GameObject end;
         public GameObject scores;
         public GameObject countdown;
@@ -23,9 +24,6 @@ namespace Core
         [Header("UI Elements")]
         public TextMeshProUGUI scorePrefab;
         public TextMeshProUGUI playerToUpgrade;
-        public PlayerStats playerStats;
-        public UpgradePrefab upgradePrefab;
-        public Transform upgradeContainer;
 
         public List<Transform> spawnPoints;
         
@@ -51,7 +49,7 @@ namespace Core
 
         public void StartRound()
         {
-            levelUp.SetActive(false);
+            levelUp.gameObject.SetActive(false);
             _deathOrder = new List<PlayerData>();
 
             // remove all trailing players, bullets and particle effects from a previous round
@@ -122,17 +120,26 @@ namespace Core
 
         private void ShowUpgradeScreen()
         {
-            levelUp.SetActive(true);
+            levelUp.gameObject.SetActive(true);
+            
+            // show the current leader board, sorted by the death order of the round that just finished
+            for (var i = _deathOrder.Count - 1; i >= 0; i--)
+            {
+                Instantiate(levelUp.playerScore, levelUp.playerContainer).Show(_deathOrder[i], _deathOrder.Count - i);
+            }
 
+            // generate a list of upgrades
             var upgrades = PlayerUpgrades.GenerateUpgrades(Globals.PlayersToSpawn.Count);
-            playerStats.SetStats(_deathOrder[0]);
+            
+            // make the first player select his upgrade
+            levelUp.playerStats.SetStats(_deathOrder[0]);
             _nextPlayerToSelectUpgrade = 0;
 
+            // show all upgrades
             foreach (var upgrade in upgrades)
             {
-                var upgradeObj = Instantiate(upgradePrefab, upgradeContainer);
-                upgradeObj.description.SetText(upgrade.GetMessage());
-                upgradeObj.img.sprite = upgrade.GetImage();
+                var upgradeObj = Instantiate(levelUp.upgradePrefab, levelUp.upgradeContainer);
+                upgradeObj.Show(upgrade);
                 upgradeObj.btn.onClick.AddListener(() => UpgradeSelected(upgrade, upgradeObj));
             }
         }
@@ -151,7 +158,7 @@ namespace Core
                 return;
             }
 
-            playerStats.SetStats(_deathOrder[_nextPlayerToSelectUpgrade]);
+            levelUp.playerStats.SetStats(_deathOrder[_nextPlayerToSelectUpgrade]);
         }
 
         public void ShowFinalScore()

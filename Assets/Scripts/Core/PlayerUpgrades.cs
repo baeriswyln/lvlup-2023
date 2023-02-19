@@ -40,7 +40,7 @@ public class PlayerUpgrades
 public abstract class Upgrade
 {
     public Sprite icon;
-    protected readonly float Bonus;
+    public readonly float Bonus;
 
     public Upgrade()
     {
@@ -56,7 +56,7 @@ public abstract class Upgrade
     }
 
     public abstract void ApplyToPlayer(PlayerData p);
-    public abstract string GetMessage();
+    public abstract string GetName();
     public abstract Sprite GetImage();
     public abstract float GetMin();
     public abstract float GetMax();
@@ -82,9 +82,9 @@ public class PlayerSpeedUpgrade : Upgrade
         }
     }
 
-    public override string GetMessage()
+    public override string GetName()
     {
-        return "Player speed " + BonusAsString();
+        return "Player speed";
     }
 
     public override Sprite GetImage()
@@ -122,9 +122,9 @@ public class FireRateUpgrade : Upgrade
         }
     }
 
-    public override string GetMessage()
+    public override string GetName()
     {
-        return "Fire interval " + BonusAsString() + "s";
+        return "Fire interval";
     }
 
     public override Sprite GetImage()
@@ -157,9 +157,9 @@ public class RangeUpgrade : Upgrade
         }
     }
 
-    public override string GetMessage()
+    public override string GetName()
     {
-        return "Range " + BonusAsString();
+        return "Range";
     }
 
     public override Sprite GetImage()
@@ -192,9 +192,9 @@ public class DamageUpgrade : Upgrade
         }
     }
 
-    public override string GetMessage()
+    public override string GetName()
     {
-        return "Damage " + BonusAsString();
+        return "Damage";
     }
 
     public override Sprite GetImage()
@@ -227,9 +227,9 @@ public class HealthUpgrade : Upgrade
         }
     }
 
-    public override string GetMessage()
+    public override string GetName()
     {
-        return "Max health " + BonusAsString();
+        return "Max health";
     }
 
     public override Sprite GetImage()

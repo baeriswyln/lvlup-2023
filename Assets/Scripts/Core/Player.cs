@@ -160,6 +160,7 @@ namespace Core
         public readonly Dictionary<string, KeyCode> KeyMap;
         public string Name;
         public Color Color;
+        public Sprite Image;
 
         public int Points;
 
@@ -172,11 +173,12 @@ namespace Core
         public float FireDamage;
         public readonly int BulletsPerShot;
 
-        public PlayerData(Dictionary<string, KeyCode> keyMap, Color color, string name, Weapon.WeaponType type)
+        public PlayerData(Dictionary<string, KeyCode> keyMap, Color color, string name, Sprite image, Weapon.WeaponType type)
         {
             KeyMap = keyMap;
             Color = color;
             Name = name;
+            Image = image;
 
             FireInterval = Globals.InitWeaponValues[type].FireInterval;
             FireRange = Globals.InitWeaponValues[type].Range;

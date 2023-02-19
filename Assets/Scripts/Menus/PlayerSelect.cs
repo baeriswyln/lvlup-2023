@@ -70,7 +70,8 @@ namespace DefaultNamespace.Menus
 
             for (var i = 0; i < _playerCount; i++)
             {
-                Globals.PlayersToSpawn.Add(new PlayerData(Globals.KeyMaps[i], Globals.Players[i].Item1, Globals.Players[i].Item2, Globals.Players[i].Item4));
+                Globals.PlayersToSpawn.Add(new PlayerData(Globals.KeyMaps[i], Globals.Players[i].Item1,
+                    Globals.Players[i].Item2, Globals.Players[i].Item3, Globals.Players[i].Item4));
             }
 
             SceneManager.LoadScene(Globals.Scenes.Game);
