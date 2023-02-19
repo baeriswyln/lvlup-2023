@@ -131,6 +131,9 @@ namespace Core
         {
             levelUp.gameObject.SetActive(true);
             
+            // remove all previous scores
+            foreach (Transform child in levelUp.playerContainer) Destroy(child.gameObject);
+            
             // show the current leader board, sorted by the death order of the round that just finished
             for (var i = _deathOrder.Count - 1; i >= 0; i--)
             {
@@ -143,9 +146,6 @@ namespace Core
             // make the first player select his upgrade
             levelUp.playerStats.SetStats(_deathOrder[0]);
             _nextPlayerToSelectUpgrade = 0;
-            
-            // remove all previous scores
-            foreach (Transform child in levelUp.playerContainer) Destroy(child);
 
             // show all upgrades
             foreach (var upgrade in upgrades)
@@ -182,7 +182,8 @@ namespace Core
 
         public void ToMainMenu()
         {
-            SceneManager.LoadScene(Globals.Scenes.Menu);
+            Time.timeScale = 1;
+            SceneManager.LoadScene(Globals.Scenes.Title);
         }
 
         public void AnnounceDeath(Player p)

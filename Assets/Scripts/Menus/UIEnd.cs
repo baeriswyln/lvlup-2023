@@ -15,10 +15,12 @@ namespace Menus
 
         public void Show(List<PlayerData> scoreboard)
         {
-            first.Show(scoreboard[0], 1);
-            second.Show(scoreboard[1], 2);
+            var l = scoreboard.Count - 1;
+            
+            first.Show(scoreboard[l], 1);
+            second.Show(scoreboard[l-1], 2);
 
-            if (scoreboard.Count > 2) third.Show(scoreboard[1], 3);
+            if (scoreboard.Count > 2) third.Show(scoreboard[l-3], 3);
             third.gameObject.SetActive(scoreboard.Count > 2);
 
             // remove all remaining scores
@@ -26,7 +28,7 @@ namespace Menus
 
             for (var i = 3; i < scoreboard.Count; i++)
             {
-                Instantiate(playerScore, containerRemainingScores).Show(scoreboard[i], i + 1);
+                Instantiate(playerScore, containerRemainingScores).Show(scoreboard[l-i], i + 1);
             }
         }
     }
