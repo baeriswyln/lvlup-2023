@@ -118,7 +118,7 @@ namespace Core
                         clip = longRangeClip;
                         break;
                 }
-                currentWeapon.Shoot(gun, clip);
+                currentWeapon.Shoot(gun, clip, _playerData.Color);
             }
 
             if (_health <= 0)
