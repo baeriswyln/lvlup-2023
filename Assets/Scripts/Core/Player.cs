@@ -6,6 +6,7 @@ using Objects;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 namespace Core
 {
@@ -23,7 +24,13 @@ namespace Core
         public SpriteRenderer playerRenderer;
         public SpriteRenderer arrowRenderer;
         public GameObject damageAnimation;
-        
+        public AudioSource footsteps;
+        public AudioSource hit;
+        public AudioSource gun;
+        public AudioClip gunClip;
+        public AudioClip shotgunClip;
+        public AudioClip longRangeClip;
+
         // todo: remove and replace with map
         public KeyCode keyRight;
         public KeyCode keyLeft;
@@ -49,6 +56,14 @@ namespace Core
             arrowRenderer.color = arrowColor;
         }
 
+        private void PlayFootStep()
+        {
+            if (!footsteps.isPlaying)
+            {
+                footsteps.Play(0);
+            }
+        }
+
         // Updated 60 times per seconds
         private void FixedUpdate()
         {
@@ -59,6 +74,7 @@ namespace Core
                 transform.Rotate(rot);
                 sprite.transform.Rotate(-rot);
                 bars.transform.Rotate(-rot);
+                PlayFootStep();
             }
 
             if (!Input.GetKey(keyRight) && Input.GetKey(keyLeft))
@@ -68,23 +84,39 @@ namespace Core
                 transform.Rotate(rot);
                 sprite.transform.Rotate(-rot);
                 bars.transform.Rotate(-rot);
+                PlayFootStep();
             }
             
             if (!(Input.GetKey(keyRight) && Input.GetKey(keyLeft)))
             {
                 // go in forward facing direction
                 _rb.velocity = transform.up * (movementSpeed * Globals.SpeedAdjFactor);
+                PlayFootStep();
             }
             else
             {
                 // stop if both keys are pressed
+                footsteps.Stop();
                 _rb.velocity = Vector2.zero;
             }
 
             if (Input.GetKey(keyShoot))
             {
                 // shoot. this only works after a cooldown
-                currentWeapon.Shoot();
+                AudioClip clip = gunClip;
+                switch (_playerData.weaponType)
+                {
+                    case Weapon.WeaponType.Pistol:
+                        clip = gunClip;
+                        break;
+                    case Weapon.WeaponType.Shotgun:
+                        clip = shotgunClip;
+                        break;
+                    case Weapon.WeaponType.LongRange:
+                        clip = longRangeClip;
+                        break;
+                }
+                currentWeapon.Shoot(gun, clip);
             }
 
             if (_health <= 0)
@@ -101,6 +133,9 @@ namespace Core
             var b = col.gameObject.GetComponent<Bullet>();
             if (b != null)
             {
+                // soundo
+                hit.pitch = Random.Range(0.8f, 1.2f);
+                hit.Play(0);
                 // decrease health
                 _health -= b.GetDamage();
                 healthBar.SetProgress(_health, _playerData.InitialHealth);
@@ -161,6 +196,7 @@ namespace Core
         public string Name;
         public Color Color;
         public Sprite Image;
+        public Weapon.WeaponType weaponType;
 
         public int Points;
 
@@ -179,6 +215,7 @@ namespace Core
             Color = color;
             Name = name;
             Image = image;
+            weaponType = weaponType;
 
             FireInterval = Globals.InitWeaponValues[type].FireInterval;
             FireRange = Globals.InitWeaponValues[type].Range;

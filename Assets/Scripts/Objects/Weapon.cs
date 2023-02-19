@@ -5,6 +5,7 @@ using DefaultNamespace;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 namespace Objects
 {
@@ -45,11 +46,13 @@ namespace Objects
             bar.SetProgress(counter, countToFire);
         }
 
-        public void Shoot()
+        public void Shoot(AudioSource source, AudioClip clip)
         {
             if (counter < countToFire) return;
 
             counter = 0;
+            source.pitch = Random.Range(0.8f, 1.2f);
+            source.PlayOneShot(clip);
             
             // show particles with initial speed
             GameObject bulletInstance;
