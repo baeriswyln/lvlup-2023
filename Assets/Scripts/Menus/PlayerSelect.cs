@@ -13,6 +13,7 @@ namespace DefaultNamespace.Menus
         public TextMeshProUGUI TextNumberOfPlayers;
         public GameObject PlayerContainer;
         public PlayerConfigurator PlayerPrefab;
+        public SceneLoader sceneLoader;
 
         public Button ButtonIncreaseNbrPlayers;
         public Button ButtonDecreaseNbrPlayers;
@@ -67,13 +68,11 @@ namespace DefaultNamespace.Menus
         public void StartGame()
         {
             Globals.PlayersToSpawn = new List<PlayerData>();
-
             for (var i = 0; i < _playerCount; i++)
             {
                 Globals.PlayersToSpawn.Add(new PlayerData(Globals.KeyMaps[i], Globals.Players[i].Item1, Globals.Players[i].Item2, Globals.Players[i].Item4));
             }
-
-            SceneManager.LoadScene(Globals.Scenes.Game);
+            sceneLoader.LoadScene(Globals.Scenes.Game);
         }
     }
 }

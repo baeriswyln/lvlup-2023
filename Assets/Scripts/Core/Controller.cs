@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DefaultNamespace;
@@ -36,8 +37,7 @@ namespace Core
         // Start is called before the first frame update
         private void Start()
         {
-            Time.timeScale = 0;
-            StartRound();
+            StartCoroutine(StartRound());
         }
 
         // Update is called once per frame
@@ -49,8 +49,10 @@ namespace Core
             }
         }
 
-        public void StartRound()
+        public IEnumerator StartRound()
         {
+            yield return new WaitForSeconds(1.4f);
+            Time.timeScale = 0;
             levelUp.SetActive(false);
             _deathOrder = new List<PlayerData>();
 
@@ -68,7 +70,7 @@ namespace Core
 
 
             // exit in case no players must be spawned (allows prototyping scene to work)
-            if (Globals.PlayersToSpawn == null) return;
+            if (Globals.PlayersToSpawn == null) yield return new WaitForEndOfFrame();
 
             // spawn players at random positions inside the spawn area
             List<int> usedIdx = new List<int>();
