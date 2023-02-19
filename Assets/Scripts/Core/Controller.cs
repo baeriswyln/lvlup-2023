@@ -49,7 +49,7 @@ namespace Core
 
         public IEnumerator StartRound()
         {
-            yield return new WaitForSeconds(1.4f);
+            yield return new WaitForSecondsRealtime(1.4f);
             Time.timeScale = 0;
             levelUp.gameObject.SetActive(false);
             _deathOrder = new List<PlayerData>();
@@ -156,7 +156,8 @@ namespace Core
             if (_nextPlayerToSelectUpgrade >= Globals.PlayersToSpawn.Count)
             {
                 Globals.PlayersToSpawn = _deathOrder;
-                StartRound();
+                Debug.Log("starting new round");
+                StartCoroutine(StartRound());
                 return;
             }
 
