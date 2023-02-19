@@ -19,7 +19,8 @@ namespace Core
         [Header("UI Screens")] public GameObject pause;
         public UILevelUp levelUp;
         public UIEnd end;
-        public GameObject countdown;
+        public Countdown countdown;
+        public AudioSource music;
 
         public List<Transform> spawnPoints;
         
@@ -30,7 +31,7 @@ namespace Core
         // Start is called before the first frame update
         private void Start()
         {
-            StartCoroutine(StartRound());
+            StartCoroutine(StartRoundFromTransition());
         }
 
         // Update is called once per frame
@@ -42,9 +43,9 @@ namespace Core
             }
         }
 
-        public IEnumerator StartRound()
+        public void StartRound()
         {
-            yield return new WaitForSecondsRealtime(1.4f);
+            countdown.gameObject.SetActive(true);
             Time.timeScale = 0;
             levelUp.gameObject.SetActive(false);
             _deathOrder = new List<PlayerData>();
@@ -63,7 +64,7 @@ namespace Core
 
 
             // exit in case no players must be spawned (allows prototyping scene to work)
-            if (Globals.PlayersToSpawn == null) yield return new WaitForEndOfFrame();
+            if (Globals.PlayersToSpawn == null) return;
 
             // spawn players at random positions inside the spawn area
             List<int> usedIdx = new List<int>();
@@ -84,9 +85,15 @@ namespace Core
                 
                 newPlayer.Initialize(p);
             }
-            
-            // count down - sets the time scale to 1 at the end of the countdown
-            countdown.SetActive(true);
+
+            countdown.StartCounting();
+        }
+
+        public IEnumerator StartRoundFromTransition()
+        {
+            countdown.gameObject.SetActive(true);
+            yield return new WaitForSecondsRealtime(1.4f);
+            StartRound();
         }
 
         public void TogglePause()
@@ -99,6 +106,11 @@ namespace Core
         {
             Time.timeScale = 1;
             pause.SetActive(false);
+        }
+
+        public void OnCountdownDone()
+        {
+            music.Play(0);
         }
 
         public void EndRound()
@@ -155,7 +167,7 @@ namespace Core
             {
                 Globals.PlayersToSpawn = _deathOrder;
                 Debug.Log("starting new round");
-                StartCoroutine(StartRound());
+                StartRound();
                 return;
             }
 
