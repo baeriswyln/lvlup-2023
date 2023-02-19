@@ -21,7 +21,7 @@ namespace Menus
             else subtitle.SetText("The ugly");
             
             playerName.SetText(p.Name);
-            index.SetText(i.ToString());
+            index?.SetText(i.ToString());
             score.SetText(p.Points + "/" + Globals.WinningPoints);
             portrait.sprite = p.Image;
         }

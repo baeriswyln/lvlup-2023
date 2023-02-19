@@ -18,13 +18,8 @@ namespace Core
 
         [Header("UI Screens")] public GameObject pause;
         public UILevelUp levelUp;
-        public GameObject end;
-        public GameObject scores;
+        public UIEnd end;
         public GameObject countdown;
-        
-        [Header("UI Elements")]
-        public TextMeshProUGUI scorePrefab;
-        public TextMeshProUGUI playerToUpgrade;
 
         public List<Transform> spawnPoints;
         
@@ -136,6 +131,9 @@ namespace Core
             // make the first player select his upgrade
             levelUp.playerStats.SetStats(_deathOrder[0]);
             _nextPlayerToSelectUpgrade = 0;
+            
+            // remove all previous scores
+            foreach (Transform child in levelUp.playerContainer) Destroy(child);
 
             // show all upgrades
             foreach (var upgrade in upgrades)
@@ -166,21 +164,8 @@ namespace Core
 
         public void ShowFinalScore()
         {
-            TextMeshProUGUI txt = null;
-
-            var scoreboard = _deathOrder.OrderBy(p => p.Points).ToList();
-
-            for (var i = scoreboard.Count - 1; i >= 0; i--)
-            {
-                txt = Instantiate(scorePrefab, scores.transform);
-                txt.SetText(scoreboard[i].Name + " - " + scoreboard[i].Points + " wins");
-            }
-
-            var entrySize = txt.GetComponent<RectTransform>().sizeDelta;
-            scores.GetComponent<RectTransform>().sizeDelta =
-                new Vector2(100, entrySize.y * Globals.PlayersToSpawn.Count);
-
-            end.SetActive(true);
+            end.Show(_deathOrder.OrderBy(p => p.Points).ToList());
+            end.gameObject.SetActive(true);
         }
 
         public void ToMainMenu()
