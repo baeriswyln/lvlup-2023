@@ -67,6 +67,7 @@ namespace Core
         // Updated 60 times per seconds
         private void FixedUpdate()
         {
+            bool moving = true;
             if (Input.GetKey(keyRight) && !Input.GetKey(keyLeft))
             {
                 // turn right
@@ -97,6 +98,7 @@ namespace Core
             {
                 // stop if both keys are pressed
                 footsteps.Stop();
+                moving = false;
                 _rb.velocity = Vector2.zero;
             }
 
@@ -126,6 +128,7 @@ namespace Core
             }
 
             animator.SetInteger("direction", ((int)(transform.rotation.eulerAngles.z + 22.5d) / 45 + 10) % 8);
+            animator.SetBool("moving", moving);
         }
 
         private void OnCollisionEnter2D(Collision2D col)
