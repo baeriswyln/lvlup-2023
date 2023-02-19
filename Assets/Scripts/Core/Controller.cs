@@ -170,7 +170,8 @@ namespace Core
 
         public void ToMainMenu()
         {
-            SceneManager.LoadScene(Globals.Scenes.Menu);
+            Time.timeScale = 1;
+            SceneManager.LoadScene(Globals.Scenes.Title);
         }
 
         public void AnnounceDeath(Player p)
