@@ -6,9 +6,12 @@ using UnityEngine.SceneManagement;
 
 public class UITitle : MonoBehaviour
 {
+
+    public SceneLoader loader;
+    
     public void Play()
     {
-        SceneManager.LoadScene(Globals.Scenes.Menu);
+        loader.LoadScene(Globals.Scenes.Menu);
     }
 
     public void About()

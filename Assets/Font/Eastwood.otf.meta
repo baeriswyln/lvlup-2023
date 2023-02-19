@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: dd2ddac6a1312fa4da551cd9e4296a0d
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Eastwood
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 51f61e4431439a74da285f5e34b27e6e, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
